@@ -1,0 +1,41 @@
+<div class="top-menu">
+
+    <img class="logo"
+         src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
+
+</div>
+
+<div class="demo">
+    <div>Start Date: {{startDate | date: 'MMM dd yyyy'}}</div>
+
+    <div>
+       Title:  {{title | titlecase}}
+    </div>
+
+    <div>
+       Price:  {{price | currency: 'ZAR'}}
+    </div>
+
+    <div>
+      Percentage:  {{rate | percent}}
+    </div>
+
+    <div *ngFor="let pair of course | keyvalue">
+        {{pair.key + ': ' + pair.value}} 
+    </div>
+</div>
+
+
+
+
+<div class="courses">
+
+    <course-card 
+    *ngFor="let course of courses | slice:0:2; index as i; first as isFirst; last as isLast; even as isEven; odd as isOdd;"
+    [class.is-first]="isFirst"
+    [class.is-last]="isLast"
+    [class.is-even]="isEven"
+    [class.is-odd]="isOdd"
+    [course]="course" [cardIndex]="i + 1" (courseSelected)="onCourseSelected($event)"></course-card>
+
+</div>
