@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { UrlHandlingStrategy } from '@angular/router';
+import { CourseImageComponent } from '../course-image/course-image.component';
 import { Course } from '../model/course';
 
 @Component({
@@ -7,7 +8,7 @@ import { Course } from '../model/course';
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css']
 })
-export class CourseCardComponent implements OnInit {
+export class CourseCardComponent implements OnInit, AfterViewInit {
   
   @Input()
   course: Course;
@@ -17,6 +18,9 @@ export class CourseCardComponent implements OnInit {
 
   @Output()
   courseSelected = new EventEmitter<Course>();
+
+  @ContentChild(CourseImageComponent)
+  image;
 
   constructor() { }
 
@@ -28,7 +32,7 @@ export class CourseCardComponent implements OnInit {
   }
 
   onCourseViewed(){
-    console.log('card component - button clicked ...');
+    
     this.courseSelected.emit(this.course);
   }
 
@@ -41,6 +45,10 @@ export class CourseCardComponent implements OnInit {
 
   cardStyles(){
     return {'background-image': 'url(' + this.course.iconUrl + ')'};
+  }
+
+  ngAfterViewInit(){
+    console.log(this.image);
   }
 
 }
