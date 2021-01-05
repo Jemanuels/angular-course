@@ -5,14 +5,22 @@
 
 </div>
 
-<button (click)="onCoursesEdited()">Edit Courses</button>
+<!-- <button (click)="onCoursesEdited()">Edit Courses</button> -->
 
-<div class="courses" #container>
+<div class="courses" #container *ngIf="courses[0] as course">
 
-    <course-card *ngFor="let course of courses; index as i;" [course]="course"  
+    <!-- <course-card *ngFor="let course of courses; index as i;" [course]="course"  
     (courseSelected)="onCourseSelected($event)" [cardIndex] = "i + 1">
-</course-card>
+</course-card> -->
 
+<course-card  [course]="course"  
+    (courseSelected)="onCourseSelected($event)">
+
+    <img width="300" alt="Angular Logo"
+    [src]="course.iconUrl">
+    <h5>Total lesssons: 5</h5>
+
+</course-card>
     
 
 </div>
