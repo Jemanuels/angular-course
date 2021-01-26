@@ -6,10 +6,7 @@
     <!-- <img width="300" #courseImage alt="Angular Logo" *ngIf="isImageVisible; else noImage"
          [src]="course.iconUrl"> -->
 
-         <ng-template #blankImage>
-            <p class="warn">{{course.description}} No image is available.</p>
-            <img src="/assets/empty-image.png">
-         </ng-template>
+        
 
          <ng-content select="course-image" *ngIf="course.iconUrl; else blankImage"></ng-content>
 
