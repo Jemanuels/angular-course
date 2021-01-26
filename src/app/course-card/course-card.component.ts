@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild } from '@angular/core';
 import { UrlHandlingStrategy } from '@angular/router';
 import { CourseImageComponent } from '../course-image/course-image.component';
 import { Course } from '../model/course';
@@ -8,7 +8,7 @@ import { Course } from '../model/course';
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css']
 })
-export class CourseCardComponent implements OnInit, AfterViewInit {
+export class CourseCardComponent implements OnInit, AfterViewInit, AfterContentInit {
   
   @Input()
   course: Course;
@@ -19,12 +19,16 @@ export class CourseCardComponent implements OnInit, AfterViewInit {
   @Output()
   courseSelected = new EventEmitter<Course>();
 
-  @ContentChild(CourseImageComponent)
-  image;
+  @ContentChildren(CourseImageComponent, {read: ElementRef})
+  images: QueryList<ElementRef>;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterContentInit(){
+    console.log(this.images);
   }
 
   get isImageVisible(){
@@ -48,7 +52,7 @@ export class CourseCardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    console.log(this.image);
+    
   }
 
 }
