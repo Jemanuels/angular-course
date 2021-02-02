@@ -7,7 +7,7 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 })
 export class CourseImageComponent implements OnInit, AfterViewInit {
 
-  @Input()
+  @Input('src')
   imageUrl: string;
 
   constructor() { }

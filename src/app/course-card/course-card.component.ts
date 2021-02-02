@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { UrlHandlingStrategy } from '@angular/router';
 import { CourseImageComponent } from '../course-image/course-image.component';
 import { Course } from '../model/course';
@@ -12,6 +12,9 @@ export class CourseCardComponent implements OnInit, AfterViewInit, AfterContentI
   
   @Input()
   course: Course;
+
+  @Input()
+  noImageTpl:TemplateRef<any>;
 
   @Input()
   cardIndex: number;
