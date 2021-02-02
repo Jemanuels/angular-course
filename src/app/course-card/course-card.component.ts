@@ -1,7 +1,19 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
-import { UrlHandlingStrategy } from '@angular/router';
-import { CourseImageComponent } from '../course-image/course-image.component';
-import { Course } from '../model/course';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  ContentChild,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output, QueryList, TemplateRef,
+  ViewChild
+} from '@angular/core';
+import {COURSES} from '../../db-data';
+import {Course} from '../model/course';
+import {CourseImageComponent} from '../course-image/course-image.component';
 
 @Component({
   selector: 'course-card',
@@ -9,53 +21,58 @@ import { Course } from '../model/course';
   styleUrls: ['./course-card.component.css']
 })
 export class CourseCardComponent implements OnInit, AfterViewInit, AfterContentInit {
-  
+
   @Input()
   course: Course;
 
   @Input()
-  noImageTpl:TemplateRef<any>;
-
-  @Input()
   cardIndex: number;
 
-  @Output()
-  courseSelected = new EventEmitter<Course>();
+  @Output('courseSelected')
+  courseEmitter = new EventEmitter<Course>();
 
   @ContentChildren(CourseImageComponent, {read: ElementRef})
   images: QueryList<ElementRef>;
 
-  constructor() { }
+  constructor() {
 
-  ngOnInit(): void {
   }
 
-  ngAfterContentInit(){
-    console.log(this.images);
+  ngAfterViewInit() {
+
   }
 
-  get isImageVisible(){
-    return this.course && this.course.iconUrl;
+  ngAfterContentInit() {
+
   }
 
-  onCourseViewed(){
-    
-    this.courseSelected.emit(this.course);
+  ngOnInit() {
+
   }
 
-  cardClasses(){
-
-    if(this.course.category == 'BEGINNER'){
-      return 'beginner';
-    }
+  isImageVisible() {
+      return this.course && this.course.iconUrl;
   }
 
-  cardStyles(){
-    return {'background-image': 'url(' + this.course.iconUrl + ')'};
+  onCourseViewed() {
+
+      this.courseEmitter.emit(this.course);
+
   }
 
-  ngAfterViewInit(){
-    
+  cardClasses() {
+      if (this.course.category == 'BEGINNER') {
+          return 'beginner';
+      }
   }
+
+  cardStyles() {
+      return {
+          'background-image': 'url(' + this.course.iconUrl + ')'
+
+      };
+  }
+
+
 
 }
